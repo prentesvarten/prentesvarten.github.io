@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C.1.4. Change Requests</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+    
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left sm-table hidden-md-down">
+        <div class="header-inner">
+            <ul class="breadcrumb">
+                <li><a href="C.project-list.html">Projects</a></li>
+                <li><a href="C.1.project-details.html">Bremnesvegen 870 - Hus</a></li>
+                <li><a href="C.1.4.change-requests.html">Change Requests</a></li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container m-t-50" ng-init="budget=12000000">
+    <header>
+        <a href="C.1.project-details.html">&larr; Back to project</a>
+        <h1>Change Requests</h1>
+    </header>
+    <section class="hidden-md-up m-t-30">
+        <div class="panel panel-default text-right">
+            <div class="panel-body p-t-15">
+                <div class="font-montserrat fs-11 all-caps">Initial budget</div>
+                <h3 class="m-t-0"><span ng-bind="budget | currency"></span></h3>
+                <div class="font-montserrat fs-11 all-caps">Accepted changes</div>
+                <h3 class="m-t-0 ng-cloak"><span ng-bind="acceptedSum=((upgrades | sumOfValue : 'costValue')-savingsSum) | currency"></span></h3>
+                <div ng-show="savings.length > 0">
+                    <div class="font-montserrat fs-11 all-caps">Incl. savings</div>
+                    <h5 class="m-t-0"><span ng-bind="savingsSum=(savings | sumOfValue : 'costValue') | currency"></span></h5>
+                </div>
+            </div>
+            <div class="panel-footer separator">
+                <div class="font-montserrat fs-11 all-caps">TOTAL</div>
+                <h3 class="m-t-0 bold"><span ng-bind="budget + acceptedSum | currency"></span></h3>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <div class="panel panel-default ng-cloak" ng-show="savings.length > 0">
+                        <div class="panel-heading text-success">
+                            <div class="pull-left m-r-10" style="opacity: 0.33;margin-top:-5px;">
+                                <i class="fa fa-percent fa-2x"></i>
+                                <i class="fa fa-long-arrow-down fa-2x"></i>
+                            </div>
+                            <div class="panel-title">Savings</div>
+                        </div>
+                        <table class="table table-condensed table-hover" role="grid">
+                            <tbody>
+                            <tr role="row" ng-repeat="cr in savings=(mockData.changeRequests | filter: {status: 'accepted'} | filter: lessThan('costValue',0) | orderBy : '-createdAt') track by $index">
+                                <td><a href="C.1.2.project-issues.html" target="_blank" ng-bind="cr.title"></a></td>
+                                <td class="text-right"><span ng-bind="cr.costValue | currency"></span></td>
+                            </tr>
+                            <tr class="bold">
+                                <td>Total savings</td>
+                                <td class="text-right"><span ng-bind="savingsSum=(savings | sumOfValue : 'costValue' ) | currency"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <div class="panel panel-default ng-cloak" ng-show="upgrades.length > 0">
+                        <div class="panel-heading">
+                            <div class="pull-left m-r-10" style="opacity: 0.33;margin-top:-5px;">
+                                <i class="fa fa-percent fa-2x"></i>
+                                <i class="fa fa-long-arrow-up fa-2x"></i>
+                            </div>
+                            <div class="panel-title">Upgrades</div>
+                        </div>
+                        <table class="table table-condensed table-hover m-b-0" role="grid">
+                            <tbody>
+                            <tr role="row" ng-repeat="cr in upgrades=(mockData.changeRequests | filter: {status: 'accepted'} | filter: greaterThanOrEqual('costValue',0) | orderBy : '-createdAt') track by $index">
+                                <td><a href="C.1.2.project-issues.html" target="_blank" ng-bind="cr.title"></a></td>
+                                <td class="text-right"><span ng-bind="cr.costValue | currency"></span></td>
+                            </tr>
+                            <tr class="bold">
+                                <td>Total upgrades</td>
+                                <td class="text-right"><span ng-bind="upgradesSum=(upgrades | sumOfValue : 'costValue' ) | currency"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <div class="panel panel-default ng-cloak" ng-show="pending.length > 0">
+                    <div class="panel-heading">
+                        <div class="panel-title">Pending</div>
+                    </div>
+                    <table class="table table-condensed table-hover" role="grid">
+                        <tbody>
+                        <tr role="row" ng-repeat="cr in pending=(mockData.changeRequests | filter: {status: 'pending'} | orderBy : '-createdAt') track by $index">
+                            <td><a href="C.1.2.project-issues.html" target="_blank" ng-bind="cr.title"></a></td>
+                            <td class="text-right" ng-class="{'text-success': cr.costValue < 0}"><span ng-bind="cr.costValue | currency"></span></td>
+                        </tr>
+                        <tr class="bold">
+                            <td>Total pending</td>
+                            <td class="text-right"><span ng-bind="pendingSum=(pending | sumOfValue : 'costValue' ) | currency"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="bs-sidebar hidden-print hidden-sm-down" role="complementary" data-offset-top="-80" bs-affix>
+                    <div class="panel panel-default text-right">
+                        <div class="panel-body p-t-15">
+                            <div class="font-montserrat fs-11 all-caps">Initial budget</div>
+                            <h3 class="m-t-0"><span ng-bind="budget | currency"></span></h3>
+                            <div class="font-montserrat fs-11 all-caps">Accepted changes</div>
+                            <h3 class="m-t-0 ng-cloak"><span ng-bind="acceptedSum=((upgrades | sumOfValue : 'costValue')-savingsSum) | currency"></span></h3>
+                            <div ng-show="savings.length > 0">
+                                <div class="font-montserrat fs-11 all-caps text-success">Incl. savings</div>
+                                <h5 class="m-t-0 text-success"><span ng-bind="savingsSum=(savings | sumOfValue : 'costValue') | currency"></span></h5>
+                            </div>
+                        </div>
+                        <div class="panel-footer separator">
+                            <div class="font-montserrat fs-11 all-caps">Final budget</div>
+                            <h3 class="m-t-0 bold"><span ng-bind="budget + acceptedSum | currency"></span></h3>
+                            <div class="font-montserrat fs-11 all-caps">Pending changes</div>
+                            <h5 class="m-t-0 text-muted"><span ng-bind="pendingSum | currency"></span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

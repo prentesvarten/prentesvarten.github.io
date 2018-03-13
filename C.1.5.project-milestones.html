@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C.1.5. Milestones</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+    
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left sm-table hidden-md-down">
+        <div class="header-inner">
+            <ul class="breadcrumb">
+                <li><a href="C.project-list.html">Projects</a></li>
+                <li><a href="C.1.project-details.html">Bremnesvegen 870 - Hus</a></li>
+                <li><a href="C.1.5.project-milestones.html">Milestones</a></li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container m-t-50">
+    <header>
+        <div class="btn-toolbar pull-right">
+            <button type="button" class="btn btn-default" ng-model="hideIgnoredMilestones" bs-checkbox><i class="fa fa-eye-slash"></i> Hide disabled</button>
+        </div>
+        <a href="C.1.project-details.html">&larr; Back to project</a>
+        <h1>Milestones</h1>
+    </header>
+    <section>
+        <div class="row">
+            <div class="col-sm-12 col-md-2">
+                <div class="bs-sidebar hidden-print hidden-sm-down" role="complementary" data-offset-top="-80" bs-affix>
+                    <div class="panel panel-transparent text-right">
+                        <div class="panel-body p-t-15">
+                            <div class="completable-summary completable-summary-complete">
+                                <h6>Complete</h6>
+                                <h2 class="m-t-0 m-b-0">
+                                    <span ng-bind="(milestones | filter: {'status':'complete'}:true).length || 0">0</span>
+                                </h2>
+                            </div>
+
+                            <div class="completable-summary completable-summary-incomplete">
+                                <h6>Incomplete</h6>
+                                <h2 class="m-t-0 m-b-0">
+                                    <span ng-bind="(milestones | filter: {'status':'incomplete'}:true).length || 0">0</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-10">
+                <div class="completable-list panel-group" role="tablist"
+                     ng-model="activeMilestone"
+                     ng-init="activeMilestone=0"
+                     ng-class="{'expanded': activeMilestone > -1}"
+                     bs-collapse>
+                    <div class="completable-item panel panel-caret ng-cloak ng-fade" ng-class="{
+                        'active': activeMilestone===$index,
+                        'panel-default': milestone.status==='incomplete' || (milestone.status==='ignored' && activeMilestone==$index),
+                        'status-complete': milestone.status==='complete',
+                        'bg-success-lighter': milestone.status==='complete' && activeMilestone!==$index,
+                        'panel-success': milestone.status==='complete',
+                        'panel-transparent': milestone.status==='ignored' && activeMilestone!==$index,
+                        'status-incomplete': milestone.status==='incomplete',
+                        'status-ignored': milestone.status==='ignored',
+                        }"
+                         ng-repeat="milestone in milestones=(mockData.milestones | orderBy : 'position') track by $index"
+                         ng-hide="hideIgnoredMilestones && milestone.status === 'ignored'">
+                            <a class="panel-heading" role="tab" bs-collapse-toggle>
+                                <div class="completable-item-header">
+                                    <div class="completable-item-position" ng-bind="$index + 1">
+                                    </div><div class="completable-item-icon" ng-switch="milestone.status">
+                                    <span class="fa-stack" ng-switch-when="complete">
+                                      <i class="fa fa-square fa-stack-2x text-success"></i>
+                                      <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span class="fa-stack" ng-switch-when="incomplete">
+                                      <i class="fa fa-square fa-stack-2x text-master"></i>
+                                      <i class="fa fa-clock-o fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span class="fa-stack" ng-switch-when="ignored">
+                                      <i class="fa fa-square fa-stack-2x text-master-light"></i>
+                                      <i class="fa fa-eye-slash fa-stack-1x text-master"></i>
+                                    </span>
+                                </div><p class="completable-item-name" ng-bind="milestone.name | capitalize"></p>
+                                    <div class="completable-item-meta badge badge-default" ng-show="milestone.status === 'ignored'">disabled</div>
+                                    <div class="completable-item-meta" ng-show="milestone.images.length > 0">
+                                        <i class="fa fa-image"></i> <span ng-bind="milestone.images.length"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+                            <div class="panel-body">
+                                <div class="completable-item-content-offset">
+                                    <div class="milestones-item-images images-list">
+                                        <div class="images-action">
+                                            <button class="btn btn-secondary" data-toggle="modal" data-target="#add-image-entry-modal">
+                                                <i class="fa fa-plus"></i><br>Add image
+                                            </button>
+                                        </div>
+                                        <div class="images-item" ng-repeat="image in milestone.images">
+                                            <a ng-href="image.imageUrl">
+                                                <img class="" ng-src="{[{image.thumbnailUrl}]}" alt="Image">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="completable-item-message ng-cloak m-t-30" ng-show="milestone.status==='complete' && milestone.message">
+                                        <h6>Comment</h6>
+                                        <p ng-bind="milestone.message"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="completable-item-footer">
+                                    <div class="completable-item-status" ng-show="milestone.status==='complete'">Completed on {[{milestone.completedAt | date}]}<br>by {[{milestone.completedBy.firstName}]} {[{milestone.completedBy.lastName}]}</div>
+                                    <div class="completable-item-actions">
+                                        <div class="">
+                                            <button class="btn btn-success" ng-show="milestone.status==='incomplete'" data-toggle="modal" data-target="#complete-milestone-modal"><i class="fa fa-check"></i> Mark as complete</button>
+                                            <button class="btn btn-default" ng-show="milestone.status==='incomplete'"><i class="fa fa-eye-slash"></i> Disable</button>
+                                            <button class="btn btn-default" ng-show="milestone.status==='ignored'"><i class="fa fa-eye"></i> Enable</button>
+                                            <button class="btn btn-default" ng-show="milestone.status==='complete'" data-toggle="modal" data-target="#undo-complete-milestone-modal"><i class="fa fa-undo"></i> Undo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="modal fade" id="complete-milestone-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Are you sure you want to complete this Milestone?</h4>
+                <p class="m-t-10 small">(only Project Managers can undo this)</p>
+            </div>
+            <div class="modal-body p-t-15">
+                <form action="">
+                    <div class="form-group form-group-default full-width" pg-form-group>
+                        <label for="complete-milestone-form-title">Comment</label>
+                        <textarea rows="4" class="form-control p-b-10" name="title" id="complete-milestone-form-title" style="height: auto" placeholder="Please explain why, if necessary"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-success" data-dismiss="modal">Mark as complete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="undo-complete-milestone-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Mark this milestone as incomplete?</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="add-image-entry-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-close"></i>
+                </button>
+                <h4 class="modal-title">Insert image?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="m-t-20 m-b-20 text-center" style="background-repeat:no-repeat;background-size:contain;background-position:center;width:100%;height:400px;background-image:url('http://placehold.it/1000x600')">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-lg btn-large" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg btn-large" data-dismiss="modal">Insert</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

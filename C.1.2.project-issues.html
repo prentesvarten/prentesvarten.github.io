@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C.1.2. Project issues</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+            <div class="pull-left hidden-lg-up">
+            <div class="header-inner">
+                <ul class="breadcrumb">
+                    <li><a href="C.1.project-issues.html"><i class="fa fa-chevron-left"></i> Project
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left sm-table hidden-md-down">
+        <div class="header-inner">
+            <ul class="breadcrumb">
+                <li><a href="C.project-list.html">Projects</a></li>
+                <li><a href="C.1.project-details.html">Bremnesvegen 870 - Hus</a></li>
+                <li><a href="C.1.2.project-issues.html">Issues</a></li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="fixed-layout">
+
+    <!-- Left sidebar with navigation and issue list-->
+
+    <nav class="fixed-layout-sidebar fixed-layout-sidebar-left bg-master-dark bg-inverse" ng-class="{'collapsed': activeIssue}">
+        <section class="sidebar-section actions hidden-md-down issue-view-actions">
+            <div class="m-b-15"><a href="C.1.project-details.html" class="text-link">&larr; Back to project</a></div>
+            <button role="button" class="btn btn-default btn-block" ng-click="addIssue()"><i class="fa fa-plus"></i> Add issue</button>
+        </section>
+        <section class="sidebar-section search no-padding">
+            <search-panel search-model="issueSearchQuery"
+                          is-search-active="issueSearchActive"
+                          on-filter-action="openFilterIssuesModal()"
+            ></search-panel>
+        </section>
+        <section class="sidebar-section browser no-padding">
+            <hr class="no-margin">
+            <div class="panel-group m-b-0" id="issue-browser" role="tablist">
+                <div class="panel panel-transparent panel-condensed">
+                    <ul class="nav nav-pills nav-stacked list-group issue-list ng-cloak">
+                        <li class="issue-item" ng-repeat="issue in mockData.issues | orderBy: 'status'" ng-class="{'issue-closed': (issue.status === 'resolved'), 'issue-unread': (issue.entriesUnreadCount > 0), 'active': issue.active}">
+                            <a href="#" ng-click="openIssue(issue.id)" class="block">
+                                <span class="row block">
+                                    <span class="col-xs-4 col-xs-push-8 text-right" style="display: block" >
+                                        <img ng-show="issue.thumbnailUrl && issue.status !== 'resolved'" ng-src="{[{issue.thumbnailUrl}]}" alt="" class="img-thumbnail" style="height:60px;">
+                                    </span>
+                                    <span class="col-xs-8 col-xs-pull-4" style="display: block">
+                                        <div class="issue-title">
+                                            <i ng-show="issue.status == 'resolved'" class="fa fa-check"></i>
+                                            <span ng-bind="issue.title">Issue title</span>
+                                            <span class="badges">
+                                                <span class="fa-stack" ng-show="issue.isPrivate">
+                                                  <i class="fa fa-circle fa-stack-2x text-muted"></i>
+                                                  <i class="fa fa-lock fa-stack-1x text-black"></i>
+                                                </span>
+                                                <span class="fa-stack" ng-show="issue.changeRequest.status === 'pending'">
+                                                  <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                                                  <i class="fa fa-exchange fa-stack-1x text-black"></i>
+                                                </span>
+                                                <span class="fa-stack" ng-show="issue.changeRequest.status === 'accepted'">
+                                                  <i class="fa fa-circle fa-stack-2x text-success"></i>
+                                                  <i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                                <span class="badge badge-default ng-cloak" ng-show="issue.entriesUnreadCount > 0 && issue.status !== 'resolved'" ng-bind="issue.entriesUnreadCount">0</span>
+                                            </span>
+                                        </div>
+                                        <div class="issue-date small text-muted">
+                                            Updated <span ng-bind="issue.dateChanged | date"></span></div>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>        </section>
+    </nav>
+
+    <!-- Main content -->
+
+    <div class="fixed-layout-content" ng-class="{'collapsed': !activeIssue}">
+        <div class="hidden-md-down ng-cloak ng-fade"
+             ng-hide="activeIssue || addIssueModel"
+             ngf-drop="addIssue($files)"
+             ngf-accept="'image/*'"
+             ngf-drag-over-class="{pattern: 'image/*', accept:'drag-accept', reject:'drag-reject', delay:100}">
+            <div class="pull-center full-height">
+                <div class="text-center col-middle col-sm-height">
+                    <h3 class="text-muted"><i class="fa fa-cloud-upload fa-2x"></i><br><strong>Drop image here</strong><br>to create new issue</h3>
+                    <p>or</p>
+                    <button class="btn btn-primary btn-lg" ng-click="addIssue()"><i class="fa fa-plus"></i> Add new issue</button>
+                </div>
+            </div>
+        </div>
+        <div id="active-issue" class="active-issue ng-cloak ng-fade" ng-show="activeIssue">
+            <div class="active-issue-header">
+                <div class="btn-toolbar pull-right">
+                    <button type="button" class="close" ng-click="closeIssue()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+            
+                <h3 class="issue-title m-t-0">
+                    <span ng-bind="activeIssue.title">Issue title</span>
+                    <span ng-show="activeIssue.isPrivate" class="label label-default" bs-tooltip data-title="Visible only for included members" data-position="auto" data-container="body"><i class="fa fa-lock"></i> Private</span>
+                    <span ng-switch="activeIssue.status">
+                                <span ng-switch-when="open" class="label label-danger"><i class="fa fa-comments-o"></i> Open</span>
+                                <span ng-switch-when="resolved" class="label label-success"><i class="fa fa-check"></i> Resolved</span>
+                            </span>
+                </h3>
+            </div><div class="active-issue-content">
+                <div class="active-issue-details">
+                    <div id="active-issue-entries" class="active-issue-entries">
+                        <ul class="entry-list">
+                            <li class="entry-item" ng-repeat="entry in activeIssue.entries">
+                                <div class="entry-component">
+                                    <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-32px']">
+                                        <span ng-bind="entry.author.firstName[0]"></span><span ng-bind="entry.author.lastName[0]"></span>
+                                    </div>
+                                    <div class="entry-content">
+                                        <div class="entry-header">
+                                            <div>
+                                                                <span class="entry-author">
+                                                                <span ng-bind="entry.author.firstName"></span>
+                                                                <span ng-bind="entry.author.lastName"></span>
+                                                            </span>
+                                                <span class="entry-date" ng-bind="entry.dateCreated | date"></span>
+                                            </div>
+                                            <span class="entry-actions">
+                                                                <button class="btn btn-link btn-xs" data-toggle="modal" data-target="#remove-issue-entry-modal"><i class="fa fa-trash-o"></i> Remove</button>
+                                                            </span>
+                                        </div>
+                                        <div class="entry-body" ng-switch="entry.type">
+                                            <div ng-switch-when="text">
+                                                <p class="entry-message" ng-bind="entry.message"></p>
+                                            </div>
+                                            <div ng-switch-when="image">
+                                                <img class="entry-image img-thumbnail" ng-src="{[{entry.imageThumbnailUrl}]}" alt="Image">
+                                            </div>
+                                            <div ng-switch-when="document">
+                                                <p class="entry-status">
+                                                    Referenced a document
+                                                </p>
+                                                <div class="entry-alert alert alert-default">
+                                                    <div class="media">
+                                                        <div class="media-left">
+                                                            <i class="fa fa-file-text-o fa-2x"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <strong><a href="#" ng-bind="entry.documentTitle" target="_blank"></a></strong><br>
+                                                            <span class="text-muted small">Category Name, v. 1 from 21.05.2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="change-request">
+                                                <p class="entry-status" ng-switch="entry.changeRequest.status">
+                                                    <span ng-switch-when="pending">Created a new change request</span>
+                                                    <span ng-switch-when="accepted">Accepted a change request</span>
+                                                    <span ng-switch-when="rejected">Rejected a change request</span>
+                                                    <span ng-switch-when="deleted">Removed a change request</span>
+                                                </p>
+                                                <div class="entry-alert alert alert-default" ng-class="{'disabled': (entry.changeRequest.status === 'deleted')}">
+                                                    <div class="media">
+                                                        <div class="media-left" ng-switch="entry.changeRequest.status">
+                                                                            <span class="fa-stack" ng-switch-when="pending">
+                                                                              <i class="fa fa-square fa-stack-2x text-muted"></i>
+                                                                              <i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+                                                                            </span>
+                                                            <span class="fa-stack" ng-switch-when="accepted">
+                                                                              <i class="fa fa-square fa-stack-2x text-success"></i>
+                                                                              <i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+                                                                            </span>
+                                                            <span class="fa-stack" ng-switch-when="rejected">
+                                                                              <i class="fa fa-square fa-stack-2x text-danger"></i>
+                                                                              <i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+                                                                            </span>
+                                                            <span class="fa-stack" ng-switch-when="deleted">
+                                                                              <i class="fa fa-square fa-stack-2x text-muted"></i>
+                                                                              <i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+                                                                            </span>
+                                                        </div>
+                                                        <div class="media-body" ng-class="{'text-deleted': (entry.changeRequest.status === 'deleted' || entry.changeRequest.status === 'rejected')}">
+                                                            <strong ng-bind="entry.changeRequest.title"></strong><br>
+                                                            <span class="text-muted small" ng-bind="entry.changeRequest.costValue + ' NOK'"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>        </div>
+                    <div class="active-issue-footer" ng-hide="activeIssue.status==='resolved'">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form action="addEntry()">
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-btn dropup">
+                                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-color:transparent"><i class="fa fa-plus"></i></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" data-target="#add-image-entry-modal" data-toggle="modal"><i class="fa fa-image fa-lg fa-fw"></i> Image</a></li>
+                                                <li><a href="#" data-target="#add-document-entry-modal" data-toggle="modal"><i class="fa fa-file-text-o fa-lg fa-fw"></i> Document Link</a></li>
+                                                <li title="Feature not available yet"><a href="#" class="disabled"><i class="fa fa-user-o fa-lg fa-fw"></i> Member</a></li>
+                                            </ul>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Type your message...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="fa fa-send-o fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>        </div>
+                </div>
+                <aside class="active-issue-sidebar">
+                    <i class="fa fa-comments-o issues-background-icon"></i>
+                    <section class="sidebar-section bg-white hidden-md-down">
+                        <button type="button" class="btn btn-block btn-default" title="Resolve Issue" aria-label="Resolve Issue" data-toggle="modal" data-target="#resolve-issue-modal"><i class="fa fa-edit"></i> Resolve issue</button>
+                    </section>
+                    <section class="sidebar-section no-padding">
+                        <div class="panel-group panel-group-sidebar" ng-model="activeIssueSidebarPanel" ng-init="activeIssueSidebarPanel=0" bs-collapse>
+                
+                            <div class="panel panel-transparent panel-caret ng-cloak" ng-class="{'active': activeIssueSidebarPanel===0}">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a bs-collapse-toggle>
+                                            <i class="fa fa-fw fa-exchange"></i> Change Request
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" bs-collapse-target>
+                                    <div class="panel-body p-t-0">
+                                        <div ng-show="activeIssue.changeRequest.status=='deleted' || activeIssue.changeRequest.status=='rejected'">
+                                            <p>Use this if you have a solution that has to be accepted by your client.</p>
+                                            <button class="btn btn-block btn-warning text-wrap text-black" data-toggle="modal" data-target="#add-changerequest-modal">Add Change Request</button>
+                                        </div>
+                                        <div ng-show="activeIssue.changeRequest.status=='pending' || activeIssue.changeRequest.status=='accepted'">
+                                            <div class="m-b-15">
+                                                <span class="badge badge-default" ng-show="activeIssue.changeRequest.status=='pending'">pending</span>
+                                                <span class="badge badge-success" ng-show="activeIssue.changeRequest.status=='accepted'">accepted</span>
+                                            </div>
+                                            <h6>Impact on budget</h6>
+                                            <h3 class="m-t-0" style="word-break: break-all"><span ng-bind="activeIssue.changeRequest.costValue"></span> kr</h3>
+                                            <h4 class="lh-normal bold" ng-bind="activeIssue.changeRequest.title"></h4>
+                                            <p>Created on <span ng-bind="activeIssue.changeRequest.createdAt | date"></span><br>by <span ng-bind="activeIssue.changeRequest.author"></span></p>
+                                            <div class="btn-group btn-group-justified" ng-show="activeIssue.changeRequest.status=='pending'">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-success btn-animated fa fa-check from-top" data-toggle="modal" data-target="#accept-changerequest-modal"><span>Accept</span></button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-danger btn-animated fa fa-remove from-top" data-toggle="modal" data-target="#reject-changerequest-modal"><span>Reject</span></button>
+                
+                                                </div>
+                                            </div>
+                                            <p ng-show="activeIssue.changeRequest.status=='accepted'">Accepted on <span ng-bind="activeIssue.changeRequest.createdAt | date"></span><br>by <span ng-bind="activeIssue.changeRequest.author"></span></p>
+                                            <!--<button type="button" class="btn btn-default no-border text-danger"><i class="fa fa-trash-o"></i> Remove</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="panel panel-transparent panel-caret ng-cloak" ng-class="{'active': activeIssueSidebarPanel===1}">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a bs-collapse-toggle>
+                                            <i class="fa fa-fw fa-user-o"></i> Members <span class="badge badge-default">5</span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" bs-collapse-target>
+                                    <ul class="nav nav-pills nav-stacked list-group p-t-10 p-b-10">
+                                        
+                            <li>
+                                <div class="media p-t-5 p-b-5 p-l-15 p-r-15">
+                                    <div class="media-left">
+                                        <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-24px']">
+                                            <span>JD</span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        Jane Diaz
+                                    </div>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div class="media p-t-5 p-b-5 p-l-15 p-r-15">
+                                    <div class="media-left">
+                                        <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-24px']">
+                                            <span>HH</span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        Harry Howell
+                                    </div>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div class="media p-t-5 p-b-5 p-l-15 p-r-15">
+                                    <div class="media-left">
+                                        <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-24px']">
+                                            <span>BR</span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        Billy Roberts
+                                    </div>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div class="media p-t-5 p-b-5 p-l-15 p-r-15">
+                                    <div class="media-left">
+                                        <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-24px']">
+                                            <span>GS</span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        Gerald Simmons
+                                    </div>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div class="media p-t-5 p-b-5 p-l-15 p-r-15">
+                                    <div class="media-left">
+                                        <div class="entry-avatar" ng-init="generateAvatarPlaceholderIndex()" ng-class="['avatar-placeholder-{[{getAvatarPlaceholderIndex()}]}-24px']">
+                                            <span>NJ</span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        Norma Johnston
+                                    </div>
+                                </div>
+                            </li>
+                        
+                                    </ul>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </section>
+                </aside></div>
+        </div>
+        <div class="ng-cloak ng-fade" ng-show="addIssueModel">
+            <div class="add-issue">
+                <button type="button" class="close" ng-click="addIssueCancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2>New issue</h2>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <form name="addIssueForm" id="add-document-form" role="form" ng-submit="addIssueSave()">
+            
+                            <div class="form-group form-group-default required full-width" pg-form-group>
+                                <label for="add-issue-form-title">Title</label>
+                                <input type="text" class="form-control input-lg" name="name" id="add-issue-form-title" ng-model="addIssueModel.title" required placeholder="e.g. Broken window on 2nd floor">
+                                <label class="error" for="add-document-form-name" ng-show="addIssueForm.title.$invalid && !addIssueForm.title.$pristine">This field is required.</label>
+                            </div>
+            
+                            <fieldset>
+                                <div class="form-group form-group-default required full-width" pg-form-group>
+                                    <label for="add-issue-form-description">Description</label>
+                                    <textarea rows="3" class="form-control p-b-10" name="description" id="add-issue-form-description" ng-model="addIssueModel.description" style="height:auto;" required placeholder="e.g. Cracked glass on SWW wall, dormitory, bottom left, needs replacement."></textarea>
+                                    <label class="error" for="add-issue-form-description" ng-show="addIssueForm.description.$invalid && !addIssueForm.description.$pristine">This field is required.</label>
+                                </div>
+            
+                                <div class="p-l-10">
+                                    <h5>Related attachment</h5>
+            
+                                    <div class="radio radio-primary">
+                                        <input type="radio" value="text" ng-model="addIssueModel.type" name="type" id="add-issue-form-attachment-text" ng-checked="!addIssueModel.type">
+                                        <label for="add-issue-form-attachment-text">None</label>
+                                        <input type="radio" value="image" ng-model="addIssueModel.type" name="type" id="add-issue-form-attachment-image">
+                                        <label for="add-issue-form-attachment-image">Upload image</label>
+                                        <input type="radio" value="document" ng-model="addIssueModel.type" name="type" id="add-issue-form-attachment-document">
+                                        <label for="add-issue-form-attachment-document">Existing document</label>
+                                    </div>
+                                </div>
+            
+                                <div ng-switch="addIssueModel.type" class="m-b-15">
+                                    <div ng-switch-when="image">
+                                        <div class="form-group form-group-default"
+                                             ngf-drop="addIssueFile($files)"
+                                             ngf-accept="'image/*'"
+                                             ngf-drag-over-class="{pattern: 'image/*', accept:'drag-accept', reject:'drag-reject', delay:100}"
+                                             ngf-max-size="20MB">
+                                            <label for="add-issue-form-image-replace">Image</label>
+            
+                                            <div ng-show="addIssueModel && addIssueModel.file" class="m-b-10">
+                                                <div class="m-t-10 m-b-10 add-issue-image"
+                                                     ngf-thumbnail="addIssueModel.file"
+                                                     ngf-as-background="true"></div>
+                                                <button type="button" class="btn btn-default text-danger" ng-click="addIssueModel.file=null">Remove</button>
+                                            </div>
+            
+                                            <div ng-hide="addIssueModel.file">
+                                                <p class="help">not larger than 20MB</p>
+                                                <div class="btn-group m-b-10 ng-cloak" role="group">
+                                                    <button class="btn btn-default"
+                                                            ng-model="addIssueModel.file"
+                                                            name="image"
+                                                            ngf-pattern="'image/*'"
+                                                            ngf-accept="'image/*'"
+                                                            ngf-max-size="20MB"
+                                                            ngf-select="addIssueFile($files)">Choose file</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div ng-switch-when="document">
+                                        <div class="form-group form-group-default">
+                                            <label for="add-issue-form-document-replace">Document</label>
+            
+                                            <div ng-show="addIssueModel && selectedDocument" class="m-b-10">
+                                                <div class="alert m-b-5">
+                                                    <i class="fa fa-file-text-o fa-2x pull-left m-t-10 m-l-5"></i>
+                                                    <p class="entry-message m-l-15 m-t-5 m-b-5 pull-left">
+                                                        <strong><a href="#" target="_blank">Document title</a></strong><br>
+                                                        <span class="text-muted small">Category Name, v. 1 from 21.05.2017</span>
+                                                    </p><br class="clearfix">
+                                                </div>
+                                                <button type="button" class="btn btn-default text-danger" ng-click="selectedDocument=null">Remove</button>
+                                            </div>
+            
+                                            <div ng-hide="selectedDocument">
+                                                <p class="help">Select an existing document from this project</p>
+                                                <div class="btn-group m-b-10 ng-cloak" role="group">
+                                                    <button class="btn btn-default" type="button" data-target="#add-document-entry-modal" data-toggle="modal">Choose document</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                            </fieldset>
+            
+                            <fieldset class="p-l-10 m-b-15">
+                                <h5 class="m-b-0">Who should be notified?
+                                    <button type="button" class="btn btn-link text-link btn-xs"><i class="fa fa-plus"></i> Add members</button>
+                                </h5>
+                                <p class="small text-muted">You, Project Managers and the Owner are included by default.</p>
+                                <ul class="user-list-inline" style="min-height:30px">
+                                    <li class="user-item"><span class="user-item-name">John Doe</span></li>
+                                    <li class="user-item"><span class="user-item-name">James Shmoe</span></li>
+                                </ul>
+                                <div class="checkbox check-primary m-b-25">
+                                    <input type="checkbox" value="0" id="add-issue-form-private">
+                                    <label for="add-issue-form-private">
+                                        Hide this issue for everyone else
+                                    </label>
+                                </div>
+                            </fieldset>
+            
+                            <div class="p-l-10 m-b-15">
+                                <h5 class="m-b-0">Do you have a solution?
+                                    <button ng-hide="addChangeRequestModel" type="button" class="btn btn-link text-link btn-xs" data-toggle="modal" data-target="#add-changerequest-modal"><i class="fa fa-plus"></i> Add change request</button>
+                                </h5>
+                                <p class="small text-muted">If you know how to fix the issue, but it has to be accepted by your client, suggest it now.</p>
+                                <div ng-show="addChangeRequestModel" class="m-b-10">
+                                    <div class="alert alert-default m-b-10">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <i class="fa fa-exchange fa-2x m-t-5 m-r-15"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <button type="button" class="close" ng-click="removeChangeRequest()"></button>
+                                                <strong ng-bind="addChangeRequestModel.title"></strong><br>
+                                                <span class="text-muted small" ng-bind="addChangeRequestModel.costValue + ' NOK'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="m-t-30">
+                                <button class="btn btn-primary btn-lg" type="submit" ng-disabled="addIssueForm.$invalid">Create issue</button>
+                                <button class="btn btn-default btn-lg" type="reset" ng-click="addIssueCancel()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="modal fade" id="add-image-entry-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-close"></i>
+                </button>
+                <h4 class="modal-title">Insert image?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="m-t-20 m-b-20 text-center" style="background-repeat:no-repeat;background-size:contain;background-position:center;width:100%;height:400px;background-image:url('http://placehold.it/1000x600')">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-lg btn-large" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg btn-large" data-dismiss="modal">Insert</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="add-document-entry-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-fill">
+        <div class="modal-content" ng-init="activeCategory=0">
+            <div class="modal-header clearfix text-left">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-close fs-14"></i>
+                </button>
+                <h4 class="modal-title">Choose a document</h4>
+            </div>
+            <div class="modal-body m-t-15 m-b-15">
+
+                <div class="panel-group m-t-0 m-b-0 document-browser" id="document-browser" role="tablist">
+                    <div class="panel panel-transparent panel-condensed">
+                        <ul class="nav nav-pills nav-stacked list-group document-list ng-cloak">
+                            <li class="document-item" ng-hide="!activeCategory">
+                                <a href="#" ng-click="openCategory(activeCategory.parent || null)">
+                                    <i class="document-item-icon fa fa-lg fa-fw fa-level-up"></i> ..
+                                </a>
+                            </li>
+                            <li class="document-item"
+                                ng-repeat="category in categories | filter: {parent: activeCategory.slug || null}"
+                                ngf-drop="addDocument($files,category.slug)"
+                                ngf-accept="'image/*,application/pdf'"
+                                ngf-drag-over-class="{pattern: 'image/*,application/pdf', accept:'drag-accept', reject:'drag-reject', delay:100}">
+                                <a href="#" ng-click="openCategory(category.slug)">
+                                    <i class="document-item-icon fa fa-lg fa-folder-o fa-fw"></i> <span ng-bind="category.name">Category</span> <span class="badge badge-default" ng-bind="category.documents.length"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-pills nav-stacked list-group document-list">
+                            <li ng-repeat="document in activeCategory.documents" class="ng-cloak document-item" ng-class="{'active': selectedDocument===document.id}">
+                                <a href="#" ng-click="selectDocument(document.id)">
+                                    <span class="document-item-icon pull-left">
+                                        <span class="status-icon fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x text-success"></i>
+                                          <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <img ng-show="document.imageSmallUrl" ng-src="{[{document.imageSmallUrl}]}" alt="" class="document-item-image img-thumbnail">
+                                        <i ng-hide="document.imageSmallUrl" class="document-item-image-fallback fa fa-fw fa-lg fa-file-o"></i>
+                                    </span>
+                                    <span class="block pull-left" style="    max-width: 80%;">
+                                        <strong class="document-item-title" ng-bind="document.name">Document Name</strong>
+                                        <span class="document-item-meta"><span ng-bind="document.updatedAt | date : 'dd.MM.yyyy'"></span> (#<span ng-bind="document.version">1</span>)</span>
+                                    </span>
+                                    <span class="clearfix"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-lg btn-large" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg btn-large" data-dismiss="modal">Insert</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="resolve-issue-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Resolve issue?</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>You won't be able to add any new entries after that.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Resolve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="accept-changerequest-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Are you sure you want to accept this change?</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-success" data-dismiss="modal">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="add-changerequest-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Change Request</h4>
+            </div>
+            <div class="modal-body p-t-25">
+                <form action="" name="addChangeRequestForm">
+                    <div class="form-group form-group-default input-group full-width" pg-form-group>
+                        <label for="add-changerequest-form-cost-value">Impact on budget</label>
+                        <input type="number" class="form-control input-xlg" name="costValue" id="add-changerequest-form-cost-value" ng-model="addChangeRequestModelTemp.costValue" placeholder="0,00">
+                        <span class="help p-b-5">Cost in NOK, can also be negative</span>
+                    </div>
+
+                    <div class="form-group form-group-default required full-width" pg-form-group>
+                        <label for="add-changerequest-form-title">Short title</label>
+                        <textarea rows="2" class="form-control p-b-10" name="title" id="add-changerequest-form-title" ng-model="addChangeRequestModelTemp.title" style="height: auto;" required></textarea>
+                        <label class="error" for="add-document-form-name" ng-show="addChangeRequestForm.title.$invalid && !addChangeRequestForm.title.$pristine">This field is required.</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="removeChangeRequest()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="addChangeRequest(addChangeRequestModelTemp)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="reject-changerequest-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Are you sure you want to reject this change?</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-danger" data-dismiss="modal">Reject</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="remove-changerequest-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Are you sure you want to remove this change?</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-danger" data-dismiss="modal">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="remove-issue-entry-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Are you sure you want to remove this entry?</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-danger" data-dismiss="modal">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal fade" id="filter-issues-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Customize</h4>
+            </div>
+            <div class="modal-body p-t-15">
+                <form action="">
+                    <fieldset>
+                        <h5>Filters</h5>
+                        <div class="checkbox check-primary">
+                            <input type="checkbox" id="filter-issues-form-filter-my" ng-model="filter.myOnly" tabindex="1">
+                            <label for="filter-issues-form-filter-my">Only my issues</label>
+                        </div>
+                        <div class="checkbox check-primary">
+                            <input type="checkbox" id="filter-issues-form-filter-resolved" ng-model="filter.resolvedOnly" tabindex="2">
+                            <label for="filter-issues-form-filter-resolved">Resolved issues</label>
+                        </div>
+                    </fieldset>
+                    <fieldset ng-init="filter.sort='latestUpdate'">
+                        <h5>Sort by</h5>
+                        <div class="radio radio-primary">
+                            <input type="radio" value="latestUpdate" id="filter-issues-form-sort-updated" ng-model="filter.sort" tabindex="3">
+                            <label for="filter-issues-form-sort-updated">Latest update</label>
+                        </div>
+                        <div class="radio radio-primary">
+                            <input type="radio" value="creationDate" id="filter-issues-form-sort-created" ng-model="filter.sort" tabindex="4">
+                            <label for="filter-issues-form-sort-created">Creation date</label>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="search-panel" ng-class="{'active': isSearchFocused || isSearchActive}">
+    <span class="search-panel-icon ng-cloak" ng-switch="isSearchActive">
+        <span class="fa fa-search ng-animate-disable" ng-switch-when="false"></span>
+        <button class="btn btn-link ng-animate-disable" ng-switch-when="true" ng-click="searchClose()">
+            <span class="fa fa-close"></span>
+        </button>
+    </span>
+    <input class="search-panel-input form-control" type="text" placeholder="Search"
+           ng-model="searchModel"
+           ng-focus="isSearchFocused = true"
+           ng-blur="isSearchFocused = false"
+    />
+    <span class="search-panel-action ng-cloak" ng-show="enableFilter"
+          bs-tooltip="" data-delay="1000" bs-enabled="isFilterActive" data-title="Filters active">
+        <button class="btn btn-link" ng-click="filterAction()" ng-class="{'text-success': isFilterActive}">
+            <span class="fa fa-filter"></span>
+        </button>
+    </span>
+</div>

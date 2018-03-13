@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C. Project list (group)</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+    
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+    
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container">
+    <div class="container-fluid">
+        <header class="m-t-50">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Projects
+                        <div class="btn-group m-l-10">
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Create <span class="caret"></span></button>
+                            <ul class="dropdown-menu" style="min-width: 200px;">
+                                <li><a href="C.2.new-project.html" class="menu-item">
+                                            <span class="menu-item-icon">
+                                                <span class="fa fa-fw fa-2x fa-ship text-primary"></span>
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Project</div>
+                                                <div class="text-muted">Track construction and maintenance</div>
+                                            </span>
+                                </a></li>
+                                <li><a href="C.4.new-project-group.html" class="menu-item">
+                                            <span class="menu-item-icon">
+                                                <span class="fa fa-fw fa-2x fa-clone text-info"></span>
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Group</div>
+                                                <div class="text-muted">Organize your projects</div>
+                                            </span>
+                                </a></li>
+                            </ul>
+                        </div>
+                    </h1>
+                </div>
+                <div class="col-md-6">
+                    <div class="btn-toolbar text-right m-t-20 ng-cloak">
+                        <div class="projects-search input-group transparent" style="width: 300px">
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-search"></span>
+                                    </span>
+                            <input type="text" placeholder="Search by name or model..." class="form-control">
+                        </div>
+                        <div class="btn-group" bs-radio-group ng-model="projectsView.style"
+                             bs-tooltip data-title="List style" data-placement="top" data-container="body">
+                            <label class="btn btn-default" ng-click="projectsView.style='tiles'">
+                                <input class="btn btn-default" value="tiles" type="radio">
+                                <span class="fa fa-th-large"></span>
+                            </label>
+                            <label class="btn btn-default" ng-click="projectsView.style='list'">
+                                <input class="btn btn-default" value="list" type="radio">
+                                <span class="fa fa-bars"></span>
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-default" bs-dropdown data-placement="bottom-right">Filter <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="menu-item">
+                                            <span class="menu-item-icon">
+                                                <span class="fa fa-fw fa-check"></span>
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Only watched</div>
+                                                <div class="text-muted">Most important projects</div>
+                                            </span>
+                                </a></li>
+                                <li><a href="#" class="menu-item">
+                                            <span class="menu-item-icon">
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Show all</div>
+                                                <div class="text-muted">Any project you're a member of</div>
+                                            </span>
+                                </a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" class="menu-item">
+                                            <span class="menu-item-icon">
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Hide groups</div>
+                                                <div class="text-muted">Show all projects at once</div>
+                                            </span>
+                                </a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-default" bs-dropdown data-placement="bottom-right"><span class="fa fa-sort-alpha-asc"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="menu-item">
+                                            <span class="menu-item-icon">
+                                                <span class="fa fa-fw fa-check"></span>
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Name</div>
+                                                <div class="text-muted">Sort in alphabetical order</div>
+                                            </span>
+                                </a></li>
+                                <li><a href="#" class="menu-item">
+                                            <span class="menu-item-icon">
+                                            </span>
+                                    <span class="menu-item-text">
+                                                <div class="bold">Last updated</div>
+                                                <div class="text-muted">Sort by recent activity</div>
+                                            </span>
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <hr>
+        <section>
+            <div class="row">
+                <div class="col-md-9">
+                    <h2 class="no-margin text-muted"><a href="C.project-list.html">..</a> / Project Group Name</h2>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-toolbar text-right m-t-5">
+                        <a href="C.5.edit-project-group.html" class="btn btn-default"><i class="fa fa-edit"></i> Edit group</a>
+                        <button href="#" class="btn btn-default" disabled
+                                bs-tooltip data-placement="bottom" data-title="This group isn't empty" data-container="body">
+                            <span class="fa fa-trash-o"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="project-list m-t-30 sm-gutter ng-cloak" ng-class="{
+                'project-list-vertical': (projectsView.style==='list'),
+                'project-list-tiles': (projectsView.style==='tiles')
+                }">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3 m-b-10">
+                    <a href="C.project-list-group.html" class="project-item project-group">
+                        <div class="ar-1-1">
+                            <div class="project-item-wrapper">
+                                <div class="project-item-content">
+                                    <div class="project-item-description">
+                                        <h3 class="project-title">Child Project Group Name</h3>
+                                    </div>
+                                    <div class="project-item-meta">
+                                        <span class="m-r-5">4 projects</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 m-b-10">
+                <a href="C.1.project-details.html" class="project-item">
+                    <div class="ar-1-1">
+                        <div class="project-item-wrapper">
+                            <div class="project-item-image" style="background-image: url('assets/images/examples/project_ksnorge.jpg')"></div>
+                            <div class="project-item-content">
+                                <div class="project-item-description">
+                                    <h3 class="project-title">KS «Norge»</h3>
+                                    <div class="project-type"><span class=" label label-white">docking</span></div>
+                                    <div class="project-company-name">King of Norway</div>
+                                </div>
+                                <div class="project-item-logo">
+                                        <div class="project-company-logo">
+                                            <img src="assets/images/examples/logo_kingofnorway.png" alt="Logo">
+                                        </div>
+                                </div>
+                                <div class="project-item-meta">
+                                        <span class="badge badge-default pull-right"><i class="fa fa-comments-o"></i> 7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 m-b-10">
+                <a href="C.1.project-details.html" class="project-item">
+                    <div class="ar-1-1">
+                        <div class="project-item-wrapper">
+                            <div class="project-item-image" style="background-image: url('assets/images/examples/project_hmybritannia.jpg')"></div>
+                            <div class="project-item-content">
+                                <div class="project-item-description">
+                                    <h3 class="project-title">HMY Britannia</h3>
+                                    <div class="project-type"><span class=" label label-white">operation</span></div>
+                                    <div class="project-company-name">United Kingdom</div>
+                                </div>
+                                <div class="project-item-logo">
+                                        <div class="project-company-logo">
+                                            <img src="assets/images/examples/logo_uk.png" alt="Logo">
+                                        </div>
+                                </div>
+                                <div class="project-item-meta">
+                                        <span class="badge badge-default pull-right"><i class="fa fa-comments-o"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 m-b-10">
+                <a href="C.1.project-details.html" class="project-item">
+                    <div class="ar-1-1">
+                        <div class="project-item-wrapper">
+                            <div class="project-item-image" style="background-image: url('assets/images/examples/project_dannebrog.jpg')"></div>
+                            <div class="project-item-content">
+                                <div class="project-item-description">
+                                    <h3 class="project-title">HDMY Dannebrog</h3>
+                                    <div class="project-type"><span class=" label label-white">docking</span></div>
+                                    <div class="project-company-name">Queen of Denmark</div>
+                                </div>
+                                <div class="project-item-logo">
+                                        <div class="project-company-logo">
+                                            <img src="assets/images/examples/logo_dk.png" alt="Logo">
+                                        </div>
+                                </div>
+                                <div class="project-item-meta">
+                                        <span class="badge badge-success pull-right"><i class="fa fa-check"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        </section>
+    </div>
+</div>
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C.5. Edit project group</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+    
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+    
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container">
+    <div class="container-fluid">
+        <header class="m-t-50 m-b-30">
+            <h1>Edit group</h1>
+        </header>
+        <section>
+            <form name="editProjectGroupForm" id="new-group-form" class="ng-pristine ng-valid" role="form">
+                <fieldset class="p-b-30">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3">
+                            <p class="help-text">Groups help you organize your projects like files inside folders.</p>
+                        </div>
+                        <div class="col-md-6 col-md-offset-2 col-lg-5 col-lg-offset-2 p-t-10">
+
+                            <div class="form-group form-group-default required" pg-form-group>
+                                <label for="new-group-form-name">Name</label>
+                                <input type="text" ng-minlength="2" class="form-control input-lg" id="new-group-form-name" ng-model="editProjectGroup.name" required>
+                            </div>
+
+                            <div class="form-group form-group-lg form-group-default form-group-default-ui-select full-width">
+                                <label>Parent group</label>
+                                <ui-select
+                                        ng-model="editProjectGroup.parent"
+                                        theme="bootstrap"
+                                        search-enabled="true"
+                                        skip-focusser="true">
+                                    <ui-select-match placeholder="None" allow-clear="true">
+                                        <span ng-bind="$select.selected.name"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="projectGroup.id as projectGroup in (projectGroups | filter: $select.search) track by projectGroup.id">
+                                        <div id="option-{[{projectGroup.id}]}" ng-bind-html="trustAsHtml((projectGroup.name | highlight: $select.search))" ng-style="{'margin-left': projectGroup.level * 10 +'px'}"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="m-t-30">
+                                <a id="new-group-form-submit" href="C.project-list-group.html" class="btn btn-primary" ng-disabled="editProjectGroupForm.$invalid">Save changes</a>
+                                <a id="new-group-form-cancel" href="C.project-list-group.html" class="btn btn-link">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+    </div>
+</div>
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

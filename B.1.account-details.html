@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>B.1. Account Details</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar bg-master-dark">
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="guest-logo text-center">
+    <img src="assets/images/mm-logo-inv.png" alt="Marine Manager" style="height:100px; padding: 25px">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Last step</div>
+                </div>
+
+                <div class="panel-body">
+                    <h4 class="m-b-30">Fill out the details,<br>to help others recognize you</h4>
+
+                    <form name="accountDetailsForm" id="account-details-form" role="form">
+                        <div id="account-details-form-feedback" ng-show="accountDetailsErrorMessage" class="alert alert-danger ng-cloak" role="alert" ng-bind="accountDetailsErrorMessage"></div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default required" pg-form-group>
+                                    <label for="account-details-form-firstname">First name(s)</label>
+                                    <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-firstname" ng-model="firstName" required tabindex="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default required" pg-form-group>
+                                    <label for="account-details-form-lastname">Last name</label>
+                                    <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-lastname" ng-model="lastName" required tabindex="2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default required" pg-form-group>
+                                    <label for="account-details-form-phone">Phone number</label>
+                                    <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-phone" ng-model="phoneNumber" required tabindex="3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group form-group-default" pg-form-group>
+                                    <label for="account-details-form-occupation">Position / occupation</label>
+                                    <input type="text" class="form-control input-lg" id="account-details-form-occupation" ng-model="occupation" tabindex="4">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-default" pg-form-group>
+                                    <label for="account-details-form-hse">HSE number</label>
+                                    <input type="text" class="form-control input-lg" id="account-details-form-hse" ng-model="hseNumber" tabindex="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox check-primary">
+                            <input type="checkbox" value="0" id="account-details-form-iscompany" ng-model="isCompany" tabindex="4">
+                            <label for="account-details-form-iscompany">I represent a company</label>
+                        </div>
+
+                        <fieldset ng-show="isCompany" class="ng-cloak ng-fade">
+                            <hr>
+                            <div class="form-group form-group-default required" pg-form-group>
+                                <label for="account-details-form-company">Company name</label>
+                                <input type="text" class="form-control input-lg" id="account-details-form-company" ng-model="company" ng-required="isCompany">
+                            </div>
+
+                            <div class="form-group form-group-default required" pg-form-group>
+                                <label for="account-details-form-street">Street Address</label>
+                                <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-street" ng-model="street" ng-required="isCompany">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="form-group form-group-default required" pg-form-group>
+                                        <label for="account-details-form-city">City</label>
+                                        <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-city" ng-model="city" ng-required="isCompany">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group form-group-default required" pg-form-group>
+                                        <label for="account-details-form-code">Code</label>
+                                        <input type="text" ng-minlength="2" class="form-control input-lg" id="account-details-form-code" ng-model="code" ng-required="isCompany">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-default" pg-form-group>
+                                <label for="newproject-form-country">Country</label>
+                                <input type="text" class="form-control input-lg ng-pristine ng-untouched ng-valid ng-empty" id="newproject-form-country" ng-model="country">
+                            </div>
+
+                        </fieldset>
+
+                        <div class="m-t-30">
+                            <a id="account-details-form-submit" href="C.project-list.html" class="btn btn-primary btn-lg btn-block" ng-disabled="accountDetailsForm.$invalid">Finish</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>C.1.3. Project members</title>
+
+    <link rel="icon" href="assets/images/byggemappen-favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-motion.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body ng-controller="ByggemAppenController" class="ng-scope fixed-header mac desktop menu-behind">
+    <div class="page-container no-sidebar">
+    <div class="header bg-master-dark">
+    
+        <div class="pull-center hidden-lg-up">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left hidden-md-down p-r-15 m-l-15 m-r-15">
+            <a class="header-inner header-brand" href="/C.project-list.html">
+                <img class="inline" alt="logo" src="assets/images/mm-logo-inv.png" height="32px">
+            </a>
+        </div>
+    
+        <div class="pull-left sm-table hidden-md-down">
+        <div class="header-inner">
+            <ul class="breadcrumb">
+                <li><a href="C.project-list.html">Projects</a></li>
+                <li><a href="C.1.project-details.html">Bremnesvegen 870 - Hus</a></li>
+                <li><a href="C.1.3.project-members.html">Members</a></li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="pull-right">
+            <div class="header-inner">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank" title="Help" class="text-center"><i class="fa fa-question-circle"></i><span class="hidden-xs-down"> Help</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar-placeholder-0-16px">JD</span>
+                            <span class="hidden-xs-down">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="dropdown-header">Administration</li>
+                            <li><a href="F.1.administration-projects.html"><i class="fa fa-home"></i> Projects</a></li>
+                            <li><a href="F.2.administration-users.html"><i class="fa fa-users"></i> Users</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="E.settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="A.3.login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </div>
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="container m-t-50">
+    <header>
+        <a href="C.1.project-details.html">&larr; Back to project</a>
+        <h1>People</h1>
+        <a href="#invite-members" class="btn btn-default visible-xs btn-block m-t-30 m-b-30"><i class="fa fa-plus"></i> Invite</a>
+    </header>
+    <section>
+        <div class="row">
+            <div class="col-sm-6 col-md-8">
+                <div class="panel panel-default">
+                    <div class="m-b-50">
+                        <div class="panel-heading">
+                            <div class="panel-title">Invited <span class="badge badge-default">4</span></div>
+                        </div>
+                        <table class="table table-condensed" style="table-layout: auto">
+                            <tbody>
+                            
+                                <tr>
+                                    <td style="width:100px">
+                                        <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                            <i class="fa fa-envelope-o fa-2x text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td><strong>Jane Diaz</strong><br>Contributor</td>
+                                    <td style="width:50px;text-align: right"><a href="#a" class="btn btn-default btn-sm">Cancel</a></td>
+                                </tr>
+                            
+                                <tr>
+                                    <td style="width:100px">
+                                        <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                            <i class="fa fa-envelope-o fa-2x text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td><strong>Harry Howell</strong><br>Contributor</td>
+                                    <td style="width:50px;text-align: right"><a href="#a" class="btn btn-default btn-sm">Cancel</a></td>
+                                </tr>
+                            
+                                <tr>
+                                    <td style="width:100px">
+                                        <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                            <i class="fa fa-envelope-o fa-2x text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td><strong>Billy Roberts</strong><br>Contributor</td>
+                                    <td style="width:50px;text-align: right"><a href="#a" class="btn btn-default btn-sm">Cancel</a></td>
+                                </tr>
+                            
+                                <tr>
+                                    <td style="width:100px">
+                                        <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                            <i class="fa fa-envelope-o fa-2x text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td><strong>Gerald Simmons</strong><br>Contributor</td>
+                                    <td style="width:50px;text-align: right"><a href="#a" class="btn btn-default btn-sm">Cancel</a></td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-heading">
+                        <div class="panel-title">Members <span class="badge badge-default">12</span></div>
+                    </div>
+                    <table class="table table-condensed" style="table-layout: auto">
+                        <tbody>
+                        
+                            <tr class="member-blocked">
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/eniminciduntlaudantium.png?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Diane Barnes</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Client <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Unblock"><i class="fa fa-undo"></i><span class="hidden-xs"> Unblock</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/voluptasquaedolorem.bmp?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Chris Richardson</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Contributor <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/dolorducimuslibero.png?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Amanda Gray</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Spectator <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs"
+                                       bs-tooltip data-placement="left" data-title="Re-enable notifications"><span class="fa fa-bell-o"></span>
+                                    </a>
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/illocorruptiunde.jpg?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Alice Bryant</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Contributor <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/doloremquiaimpedit.png?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Daniel Hart</strong> <span class="badge badge-default">project owner</span><br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Contributor <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/quilaboriosameligendi.jpg?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Barbara Hayes</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Contributor <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/eaeteligendi.bmp?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Robert Gutierrez</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Spectator <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs"
+                                       bs-tooltip data-placement="left" data-title="Re-enable notifications"><span class="fa fa-bell-o"></span>
+                                    </a>
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/quaeratremtempora.jpg?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Patricia Hall</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Spectator <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs"
+                                       bs-tooltip data-placement="left" data-title="Re-enable notifications"><span class="fa fa-bell-o"></span>
+                                    </a>
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/perspiciatisitaquenisi.bmp?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Maria Nichols</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Client <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr class="member-blocked">
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/sitculpaexcepturi.png?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Joyce Coleman</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Project Manager <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Unblock"><i class="fa fa-undo"></i><span class="hidden-xs"> Unblock</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                            <tr >
+                                <td style="width:100px">
+                                    <div class="thumbnail-wrapper d48 circular bg-light b-white m-r-10 b-a b-white">
+                                        <img width="35" height="35" alt="Profile Image" src="https://robohash.org/eummodiqui.bmp?size&#x3D;50x50&amp;set&#x3D;set1">
+                                    </div>
+                                </td>
+                                <td style="overflow:visible;">
+                                    <strong>Heather Ortiz</strong> <br>
+                                    <span class="btn-group" style="overflow: visible;">
+                                        <a class="btn btn-link text-muted p-b-0 p-l-0 p-t-0 p-r-0 dropdown-toggle" data-toggle="dropdown" href="#">Client <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Project Manager</a></li>
+                                            <li><a href="#">Client</a></li>
+                                            <li><a href="#">Contractor</a></li>
+                                            <li><a href="#">Crew</a></li>
+                                            <li><a href="#">Spectator</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td style="width:auto;text-align: right;">
+                                        <a href="#a" class="btn btn-default btn-sm" title="Block"><i class="fa fa-ban"></i><span class="hidden-xs"> Block</span></a>
+                                    <a href="#" class="btn btn-default btn-sm hidden-xs">Make owner</a>
+                                </td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="panel panel-default" id="invite-members">
+                    <div class="panel-heading">
+                        <h3 class="m-b-30">Add members</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="alert alert-success ng-cloak" ng-show="inviteMemberSent">Invitation sent to email@domain.com</div>
+
+                        <form name="inviteMemberForm" id="invitemember-form" class="ng-pristine ng-valid" role="form" ng-submit="inviteMemberSent=true;" ng-init="inviteMemberSent=false" >
+
+                            <div id="invitemember-form-feedback" ng-show="inviteMemberFormErrorMessage" class="alert alert-danger ng-cloak" role="alert" ng-bind="inviteMemberFormErrorMessage"></div>
+
+
+                            <div class="form-group form-group-lg form-group-default form-group-default-ui-select required full-width">
+                                <label>Role in project</label>
+                                <ui-select ng-model="sendProjectInvitationModel.roles" theme="bootstrap"
+                                           search-enabled="false" skip-focusser="true">
+                                    <ui-select-match placeholder="Select...">
+                                        <span ng-bind="($select.selected.name | translate)"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="role.stub as role in projectRoles">
+                                        <div id="option-{[{role.stub}]}" ng-bind-html="trustAsHtml((role.title | highlight: $select.search))"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+                            <div class="form-group form-group-default required">
+                                <label for="invitemember-form-email">E-mail</label>
+                                <input type="email" class="form-control input-lg ng-pristine ng-untouched ng-valid ng-empty" id="invitemember-form-company" ng-model="email" required>
+                            </div>
+
+                            <div class="form-group form-group-default required">
+                                <label for="invitemember-form-firstname">First name(s)</label>
+                                <input type="text" ng-minlength="2" class="form-control input-lg ng-pristine ng-untouched ng-valid ng-empty" id="invitemember-form-firstname" ng-model="firstName">
+                            </div>
+
+                            <div class="form-group form-group-default required">
+                                <label for="invitemember-form-lastname">Last name</label>
+                                <input type="text" ng-minlength="2" class="form-control input-lg ng-pristine ng-untouched ng-valid ng-empty" id="invitemember-form-lastname" ng-model="lastName">
+                            </div>
+
+                            <button type="submit" id="invitemember-form-submit" class="btn btn-primary btn-lg btn-block" ng-disabled="inviteMemberForm.$invalid"><i class="fa fa-envelope-o"></i> Send invitation</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+        </div>
+        <div class="container-fixed-lg footer small sm-text-center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="hint-text">Copyright © 2017 Marine Manager.</span>
+                    <ul class="footer-nav m-l-10">
+                        <li class="footer-nav-item"><a href="A.4.terms-of-use.html">Terms of use</a></li>
+                        <li class="footer-nav-item"><a href="A.5.privacy-policy.html">Privacy Policy</a></li>
+                        <li class="footer-nav-item"><a href="#">Help</a></li>
+                        <li class="footer-nav-item"><a href="mailto:kontakt@marinemanager.no">kontakt@marinemanager.no</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 text-right hidden-sm-down">
+                    Marine Manager Web App Templates 1.8.0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/classie.js"></script>
+    <!--<script type="text/javascript" src="assets/js/vendor/pages.js"></script>-->
+    
+    <script type="text/javascript" src="assets/js/vendor/angular.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-animate.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/select.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-file-upload.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-strap.tpl.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-sticky.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/ng-tags-input.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-filter.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-moment.js"></script>
+    
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    
+    <script type="text/javascript" src="assets/js/directives/pg-form-group.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-tab.js"></script>
+    <script type="text/javascript" src="assets/js/directives/pg-dropdown.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngFileDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/cs-select.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngSwitcher.js"></script>
+    <script type="text/javascript" src="assets/js/directives/ngTooltipDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/passwordInputDirective.js"></script>
+    <script type="text/javascript" src="assets/js/directives/searchPanelDirective.js"></script>
+</body>
+</html>
